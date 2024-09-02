@@ -13,10 +13,10 @@ SRC = main.c data.c linkedList.c dict.c utils.c
 # OBJ is the same as SRC, just replace .c with .o
 OBJ = $(SRC:.c=.o)
 
-dict1: $(OBJ)
+dict3: $(OBJ)
 	$(CC) $(CFLAGS) -o dict3 $(OBJ) $(LIB)
 
-dict2: $(OBJ)
+dict4: $(OBJ)
 	$(CC) $(CFLAGS) -o dict4 $(OBJ) $(LIB)
 	
 
