@@ -1,0 +1,25 @@
+query= Spotswood
+Spotswood --> 1 records deleted
+query= Richmond Plains
+Richmond Plains --> 1 records deleted
+query= New York
+New York --> NOT FOUND
+query= Ascot Vale
+Ascot Vale --> 1 records deleted
+query= Docklands
+Docklands --> 1 records deleted
+query= South
+South --> NOT FOUND
+query= Richmond Lowlands
+Richmond Lowlands --> 1 records deleted
+query= Port Melbourne
+Port Melbourne --> 1 records deleted
+query= Far Far Away
+Far Far Away --> NOT FOUND
+query= Yarraville
+Yarraville --> 1 records deleted
+query= Red Hill South
+Red Hill South --> 1 records deleted
+query= Carlton North
+Carlton North --> 1 records deleted
+Summary: 12 deleted operations performed, 9 records deleted in total
