@@ -20,7 +20,7 @@
 // valid tasks
 typedef enum {
     LOWER_TASK = 0, // bound
-    LL_SEARCH = 1,  // search-on-linked-list
+    LL_SEARCH = 3,  // search-on-linked-list
     LL_DELETE = 2,  // delete-on-linked-list
     // By default, enum values take the value preceeding
     //  plus one.

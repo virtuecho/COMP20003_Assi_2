@@ -5,7 +5,7 @@ CFLAGS = -Wall -g
 LIB =
 
 # the first target, which includes all executable file names such as dict1, dict2
-all = dict1 dict2
+all = dict3 dict4
 
 
 # define sets of .c source files and object files
@@ -14,10 +14,11 @@ SRC = main.c data.c linkedList.c dict.c utils.c
 OBJ = $(SRC:.c=.o)
 
 dict1: $(OBJ)
-	$(CC) $(CFLAGS) -o dict1 $(OBJ) $(LIB)
+	$(CC) $(CFLAGS) -o dict3 $(OBJ) $(LIB)
 
 dict2: $(OBJ)
-	$(CC) $(CFLAGS) -o dict2 $(OBJ) $(LIB)
+	$(CC) $(CFLAGS) -o dict4 $(OBJ) $(LIB)
+	
 
 # for each .o file, make it also depends on the corresponding .h file
 %.o : %.c %.h
