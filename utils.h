@@ -27,7 +27,8 @@
 #define MAX_STR_LEN 127   // expected max length of an input string
 #define MAX_BUF_LEN 511   // expected max length of an input line
 
-
+/* Number of bits in a single character. */
+#define BITS_PER_BYTE 8
 
 // dynamic memory tools
 void *myMalloc(size_t size);
@@ -52,6 +53,24 @@ char *getString(FILE *f);
 /*--------- errors & warning  ---------- --------------*/
 void error(char *);
 void warning(char *);
+
+
+
+/* Helper function. Gets the bit at bitIndex from the string s. */
+static int getBit(char *s, unsigned int bitIndex);
+
+/* Allocates new memory to hold the numBits specified and fills the allocated
+    memory with the numBits specified starting from the startBit of the oldKey
+    array of bytes. */
+char *createStem(char *oldKey, unsigned int startBit, unsigned int numBits);
+
+/* Returns min of 3 integers 
+    reference: https://www.geeksforgeeks.org/edit-distance-in-c/ */
+int min(int a, int b, int c);
+
+/* Returns the edit distance of two strings
+    reference: https://www.geeksforgeeks.org/edit-distance-in-c/ */
+int editDistance(char *str1, char *str2, int n, int m);
 
 /* TRACING */
 #if 0

@@ -12,7 +12,6 @@
 #include <assert.h>
 #include "utils.h"
 #include "data.h"
-#include "comparison_info.h"
 
 // struct of CSV records
 struct data {

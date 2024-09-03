@@ -3,9 +3,6 @@
 
 #include "data.h"
 
-/* Number of bits in a single character. */
-#define BITS_PER_BYTE 8
-
 typedef struct comparison_info {
 	int bit_comparisons;
 	int node_accesses;
