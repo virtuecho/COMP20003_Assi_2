@@ -12,6 +12,7 @@
 #include <assert.h>
 #include "utils.h"
 #include "data.h"
+#include "comparison_info.h"
 
 // struct of CSV records
 struct data {
@@ -159,7 +160,7 @@ void dataFree(void *vdata) {
   free(data);
 }
 
-// compare data with a key, counts character comparisons
+// compare data with a key, counts character comparisons, *8 bits to the bit comparison count
 int dataKeyCmp(void *vdata, void *key, int *comps) {
   data_t *data = vdata;
   char *s1 = data->suburbName, *s2 = key;
@@ -171,7 +172,7 @@ int dataKeyCmp(void *vdata, void *key, int *comps) {
 
   int i = 0;
   while (i <= n1 && i <= n2) { // <= to include nullbyte
-    (*comps)++;
+    (*comps)+= BITS_PER_BYTE; // each character compared adds exactly 8 bits to the bit comparison count
     if (s1[i] > s2[i]) {
       return 1;
     }

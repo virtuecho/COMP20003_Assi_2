@@ -10,6 +10,7 @@
 #define _LINKED_LIST_H_
 
 #include "data.h"
+#include "comparison_info.h"
 
 typedef struct llist llist_t;
 
@@ -30,7 +31,7 @@ void llistPrint(void *ll, char **labels, FILE *f);
 // find all nodes in "source" having "key" and add them to the end
 //      of "target", in appearance order
 //      return number of found data
-int llistSearch(void *source, void *target, void *key);
+int llistSearch(void *source, void *target, void *key, comparison_info_t*);
 
 // free "list", also applying dataFree() if not NULL)
 void llistFree(void *ll, void (*dataFree)(void *data));

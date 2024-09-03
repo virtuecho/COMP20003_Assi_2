@@ -28,7 +28,7 @@ struct dict {
   void *((*create)(void));  // create empty collection
   int (*insert)(void *coll, void *data);  // insert 1 data into coll
   int (*delete)(void *coll, void *key);   // delete all keys from coll
-  int (*search)(void *key, void *sourceColl, void *targetColl);
+  int (*search)(void *key, void *sourceColl, void *targetColl, comparison_info_t *compare_info);
                           // search for key in sourceColl
                           // append found records to targetColl
   void (*print)(void *coll, char **labels, FILE *f);
@@ -114,8 +114,8 @@ int dictDelete(dict_t *dict, void *key) {
 // search for (possibly duplicated) key in dictinary,
 //     append found records to file "result"
 //     return the number of found record
-int dictSearch(void *key, dict_t *dict, dict_t *result) {
-  return dict->search(key, dict->coll, result->coll);
+int dictSearch(void *key, dict_t *dict, dict_t *result, comparison_info_t* compare_info) {
+  return dict->search(key, dict->coll, result->coll, compare_info);
 }
 
 

@@ -10,6 +10,8 @@
 #ifndef _DICT_H_
 #define _DICT_H_
 
+#include "comparison_info.h"
+
 // common defs for all dict
 typedef enum {
   LOWER_BOUND = 0, 
@@ -44,7 +46,7 @@ int dictDelete(dict_t *dict, void *key);
 // search for (possibly duplicated) key in dictinary,
 //     append found records to file "result"
 //     return the number of found record
-int dictSearch(void *key, dict_t *dict, dict_t *result);
+int dictSearch(void *key, dict_t *dict, dict_t *result, comparison_info_t* compare_info);
 
 // write dictionary to a file in the CSV format
 void dictOutputCsvFile(dict_t *dict, char *fname);

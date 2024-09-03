@@ -16,6 +16,7 @@
 #include "utils.h"
 #include "dict.h"
 #include "data.h"
+#include "comparison_info.h"
 
 // valid tasks
 typedef enum {
@@ -24,7 +25,7 @@ typedef enum {
     LL_DELETE = 2,  // delete-on-linked-list
     // By default, enum values take the value preceeding
     //  plus one.
-    UPPER_TASK      // bound
+    UPPER_TASK = 5      // bound
 } task_t;
 
 #define ARGC 4
@@ -78,9 +79,11 @@ void batchSearch(dict_t *dict, char *outFileName, FILE *msgFile) {
         // create an empty linked list dictionary for holding search output
         dict_t *outputDict = dictCopyStructure(dict);
         // perform a search, then output
-        int matches = dictSearch(query, dict, outputDict);
+        comparison_info_t compare_info = {0, 0, 0}; // Initiate comparison info
+        int matches = dictSearch(query, dict, outputDict, &compare_info);
         if (matches){
-            fprintf(msgFile, "%s --> %d records found\n", query, matches);
+            fprintf(msgFile, "%s --> %d records found - comparisons: b%d n%d s%d\n", query, matches,
+            compare_info.bit_comparisons, compare_info.node_accesses, compare_info.string_comparisons);
         } else {
             fprintf(msgFile, "%s --> NOTFOUND\n", query);
         }

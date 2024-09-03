@@ -141,13 +141,16 @@ void llistPrint(void *vll, char **labels, FILE *f) {
 // find all nodes in "source" having "key" and add them to the end
 //      of "target", in appearance order
 //      return number of found data
-int llistSearch(void *key, void *vsource, void *vtarget) {
+int llistSearch(void *key, void *vsource, void *vtarget, comparison_info_t* compare_info) {
     llist_t *source = vsource;
     llist_t *target = vtarget;
     assert(source && target && key);
     int matches = 0;
     for (lnode_t *curr = source->head; curr; curr = curr->next) {
-        if (dataKeyCmp(curr->data, key, NULL) == 0) { // found matched node
+        compare_info->node_accesses++; // node access +1 per accessed linked list node
+        compare_info->string_comparisons++; // even if a mismatch occurs, is 1 string comparison
+        // each character compared adds exactly 8 bits to the bit comparison count
+        if (dataKeyCmp(curr->data, key, &(compare_info->bit_comparisons)) == 0) { // found matched node
             llistInsert(target, curr->data);
             matches++;
         }
