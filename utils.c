@@ -148,7 +148,7 @@ void warning(char *message) {
 
 /* Helper function. Gets the bit at bitIndex from the string s. */
 int getBit(char *s, unsigned int bitIndex){
-    assert(s && bitIndex >= 0);
+    assert(s && bitIndex >= 0 && bitIndex >= strlen(s) * BITS_PER_BYTE);
     unsigned int byte = bitIndex / BITS_PER_BYTE;
     unsigned int indexFromLeft = bitIndex % BITS_PER_BYTE;
     /* 
