@@ -86,7 +86,7 @@ void batchSearch_patricia(patricia_node_t* root, char *outFileName, FILE *msgFil
         comparison_info_t compare_info = {0, 0, 0}; // Initiate comparison info
         data_t* matches = search_patricia(root, query, &compare_info);
         if (matches != NULL){
-            fprintf(msgFile, "%s --> 1 records found - comparisons: b%d n%d s%d\n", query,
+            fprintf(msgFile, "%s --> 1 records - comparisons: b%d n%d s%d\n", query,
             compare_info.bit_comparisons, compare_info.node_accesses, compare_info.string_comparisons);
             dataPrint(matches, labels, outFile);  // print matches to file
         } else {
@@ -111,7 +111,7 @@ void batchSearch(dict_t *dict, char *outFileName, FILE *msgFile) {
         comparison_info_t compare_info = {0, 0, 0}; // Initiate comparison info
         int matches = dictSearch(query, dict, outputDict, &compare_info);
         if (matches){
-            fprintf(msgFile, "%s --> %d records found - comparisons: b%d n%d s%d\n", query, matches,
+            fprintf(msgFile, "%s --> %d records - comparisons: b%d n%d s%d\n", query, matches,
             compare_info.bit_comparisons, compare_info.node_accesses, compare_info.string_comparisons);
         } else {
             fprintf(msgFile, "%s --> NOTFOUND\n", query);

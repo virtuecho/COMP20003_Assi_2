@@ -146,7 +146,10 @@ data_t* find_closest_match(patricia_node_t* node, char* key, comparison_info_t* 
 }
 
 void free_all_patricia(patricia_node_t* root) {
-	assert(root);
+	if (root == NULL) {
+		return;
+	}
+	
 	free_all_patricia(root->branchA);
 	free_all_patricia(root->branchB);
 	free(root->data);
