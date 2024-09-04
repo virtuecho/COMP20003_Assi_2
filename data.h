@@ -15,6 +15,20 @@
 typedef struct header header_t;
 typedef struct data data_t;
 
+// struct of CSV records
+struct data {
+  int recId;           // record ID in the full set of data
+  int suburbCode;
+  char *suburbName;
+  int year;
+  char *stateCode;
+  char *stateName;
+  char *govCode;
+  char *govName;
+  double latitude;
+  double longitude;
+};
+
 // read and parse the csv header line from file f
 char **dataGetLabels(FILE *f);
 

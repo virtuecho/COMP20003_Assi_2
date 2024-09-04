@@ -13,20 +13,6 @@
 #include "utils.h"
 #include "data.h"
 
-// struct of CSV records
-struct data {
-  int recId;           // record ID in the full set of data
-  int suburbCode;
-  char *suburbName;
-  int year;
-  char *stateCode;
-  char *stateName;
-  char *govCode;
-  char *govName;
-  double latitude;
-  double longitude;
-};
-
 // read and parse the csv header line from file f
 //    assuming always successful
 //    reurn: NULL-terminated array of strings

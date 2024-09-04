@@ -57,7 +57,7 @@ void warning(char *);
 
 
 /* Helper function. Gets the bit at bitIndex from the string s. */
-static int getBit(char *s, unsigned int bitIndex);
+int getBit(char *s, unsigned int bitIndex);
 
 /* Allocates new memory to hold the numBits specified and fills the allocated
     memory with the numBits specified starting from the startBit of the oldKey

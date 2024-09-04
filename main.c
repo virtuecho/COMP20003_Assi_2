@@ -17,11 +17,13 @@
 #include "dict.h"
 #include "data.h"
 #include "comparison_info.h"
+#include "patricia_trie.h"
 
 // valid tasks
 typedef enum {
     LOWER_TASK = 0, // bound
     LL_SEARCH = 3,  // search-on-linked-list
+    PATRICIA_SEARCH = 4, // search-on-patricia-trie
     LL_DELETE = 2,  // delete-on-linked-list
     // By default, enum values take the value preceeding
     //  plus one.
@@ -33,6 +35,8 @@ typedef enum {
 void processArgs(int argc, char *argv[], task_t *, char **, char **);
 void batchSearch(dict_t *dict, char *outFileName, FILE *msgFile);
 void batchDelete(dict_t *dict, char *outFileName, FILE *msgFile);
+
+void batchSearch_patricia(patricia_node_t* root, char *outFileName, FILE *msgFile, char** labels);
 
 
 int main(int argc, char *argv[]) {
@@ -46,9 +50,11 @@ int main(int argc, char *argv[]) {
     FILE *inFile = myFopen(inFileName, "r");
     char **labels = dataGetLabels(inFile);            // read CSV header line
     dict_t *dict = dictCreate(dsType, TRUE, labels);  // create empty dict
+    patricia_node_t* patricia_root = NULL;
     void *data = NULL;
     while ( (data = dataGetLine(inFile)) != NULL)  {
         dictInsert(dict, data);                        // build the dataset
+        patricia_root = insert_patricia(patricia_root, ((data_t*)data)->suburbName, data);
     }
     fclose(inFile);
 
@@ -58,6 +64,8 @@ int main(int argc, char *argv[]) {
         case LL_SEARCH:
             batchSearch(dict, outFileName, msgFile);
             break;
+        case PATRICIA_SEARCH:
+            batchSearch_patricia(patricia_root, outFileName, msgFile, labels);
         case LL_DELETE:
             batchDelete(dict, outFileName, msgFile);
             break;
@@ -69,6 +77,27 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
+void batchSearch_patricia(patricia_node_t* root, char *outFileName, FILE *msgFile, char** labels) {
+    FILE *outFile = myFopen(outFileName, "w");
+    char *query = NULL;
+    while ( (query = getString(stdin)) != NULL) {
+
+        // perform a search, then output
+        comparison_info_t compare_info = {0, 0, 0}; // Initiate comparison info
+        data_t* matches = search_patricia(root, query, &compare_info);
+        if (matches != NULL){
+            fprintf(msgFile, "%s --> 1 records found - comparisons: b%d n%d s%d\n", query,
+            compare_info.bit_comparisons, compare_info.node_accesses, compare_info.string_comparisons);
+            dataPrint(matches, labels, outFile);  // print matches to file
+        } else {
+            fprintf(msgFile, "%s --> NOTFOUND\n", query);
+        }
+
+        fprintf(outFile, "%s -->\n", query);
+        free(query);
+    }
+    fclose(outFile);
+}
 
 // do multiple search on dict, output result after each search
 // note: dict can be of any types (concrete data structures)

@@ -9,7 +9,7 @@ all = dict3 dict4
 
 
 # define sets of .c source files and object files
-SRC = main.c data.c linkedList.c dict.c utils.c
+SRC = main.c data.c linkedList.c dict.c utils.c patricia_trie.c
 # OBJ is the same as SRC, just replace .c with .o
 OBJ = $(SRC:.c=.o)
 
