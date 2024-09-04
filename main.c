@@ -54,7 +54,10 @@ int main(int argc, char *argv[]) {
     void *data = NULL;
     while ( (data = dataGetLine(inFile)) != NULL)  {
         dictInsert(dict, data);                        // build the dataset
-        patricia_root = insert_patricia(patricia_root, ((data_t*)data)->suburbName, data);
+        if (strcmp(argv[1], "4") == 0) {
+            patricia_root = insert_patricia(patricia_root, ((data_t*)data)->suburbName, data);
+        }
+        
     }
     fclose(inFile);
 
@@ -74,6 +77,7 @@ int main(int argc, char *argv[]) {
     }
     // top-level cleaning
     dictFree(dict);
+    free_all_patricia(patricia_root);
     return 0;
 }
 
