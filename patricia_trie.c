@@ -113,7 +113,7 @@ data_t* search_patricia(patricia_node_t* root, char* key, comparison_info_t* com
 data_t* find_closest_match(patricia_node_t* node, char* key, comparison_info_t* compare_info) {
 
 	// calculate the distance of strings
-	int distance = editDistance((char*) node->prefix, key, (node->prefix_bits) / BITS_PER_BYTE, strlen(key));
+	int distance = editDistance(node->prefix, key, (node->prefix_bits) / BITS_PER_BYTE, strlen(key));
 	compare_info->string_comparisons++;
 
 	data_t* closest_match = node->data; // for now this is the closest
