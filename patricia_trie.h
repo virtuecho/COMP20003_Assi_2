@@ -8,7 +8,7 @@ typedef struct patricia_node patricia_node_t;
 
 struct patricia_node {
 	unsigned int prefix_bits; // how many bits of prefix
-	unsigned int* prefix;
+	char* prefix;
 	patricia_node_t* branchA; // next bit is 0
 	patricia_node_t* branchB; // nextbit is 1
 	data_t* data;
@@ -18,7 +18,7 @@ struct patricia_node {
 patricia_node_t* insert_patricia(patricia_node_t* root, char* key, data_t* data);
 
 // find mismatch bit, if all match, return all bits, else return the mismatch bit
-unsigned int find_mismatch_bit(unsigned int* prefix, char* key, unsigned int prefix_bits);
+unsigned int find_mismatch_bit(char* prefix, char* key, unsigned int prefix_bits);
 
 // search by the key, if mismatch in key, return the closest match
 data_t* search_patricia(patricia_node_t* root, char* key, comparison_info_t* compare_info);

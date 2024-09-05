@@ -8,7 +8,7 @@ patricia_node_t* insert_patricia(patricia_node_t* root, char* key, data_t* data)
 	if (root == NULL) {
 		patricia_node_t* node = malloc(sizeof(patricia_node_t));
 		node->prefix_bits = strlen(key) * BITS_PER_BYTE;
-		node->prefix = (unsigned int*) key;
+		node->prefix = key;
 		node->data = data;
 		node->branchA = NULL;
 		node->branchB = NULL;
@@ -32,7 +32,7 @@ patricia_node_t* insert_patricia(patricia_node_t* root, char* key, data_t* data)
 		// Not in Tree Already, split node
 		patricia_node_t* new_node = malloc(sizeof(patricia_node_t));
 		new_node->prefix_bits = mismatch_bit;
-		new_node->prefix = (unsigned int*)createStem(key, 0, mismatch_bit);
+		new_node->prefix = createStem(key, 0, mismatch_bit);
 		new_node->data = NULL; // no need to store data in split node
 
 		// rearrange the Tree
@@ -52,10 +52,10 @@ patricia_node_t* insert_patricia(patricia_node_t* root, char* key, data_t* data)
 }
 
 // find mismatch bit, if all match, return all bits, else return the mismatch bit
-unsigned int find_mismatch_bit(unsigned int* prefix, char* key, unsigned int prefix_bits) {
+unsigned int find_mismatch_bit(char* prefix, char* key, unsigned int prefix_bits) {
 
 	for (unsigned int i = 0; i < prefix_bits; i++) {
-		if (getBit((char*) prefix, i) != getBit(key, i)) {
+		if (getBit(prefix, i) != getBit(key, i)) {
 			return i; // return mismatch bit
 		}
 		return prefix_bits; // all match
