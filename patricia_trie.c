@@ -8,7 +8,7 @@ patricia_node_t* insert_patricia(patricia_node_t* root, char* key, data_t* data)
 	if (root == NULL) {
 		patricia_node_t* node = malloc(sizeof(patricia_node_t));
 		node->prefix_bits = strlen(key) * BITS_PER_BYTE;
-		node->prefix = key;
+		node->prefix = strdup(key);
 		node->data = data;
 		node->branchA = NULL;
 		node->branchB = NULL;
